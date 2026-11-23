@@ -1,7 +1,25 @@
 
+import importlib.util
+from pathlib import Path
 from types import SimpleNamespace
 
-from src.overtaking_planner import OvertakingPlanner
+# Đường dẫn đến module cần kiểm thử
+MODULE_PATH = (
+    Path(__file__).resolve().parents[1]
+    / "src"
+    / "overtaking_planner.py"
+)
+
+# Nạp trực tiếp module, không chạy src/__init__.py
+spec = importlib.util.spec_from_file_location(
+    "overtaking_planner_under_test",
+    MODULE_PATH
+)
+
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+
+OvertakingPlanner = module.OvertakingPlanner
 
 
 def make_waypoint():
