@@ -1,1 +1,44 @@
 
+name: CARLA Python CI
+
+on:
+  push:
+    branches: [main]
+
+  pull_request:
+    branches: [main]
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  syntax-check:
+    name: Check Python Syntax
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.10'
+
+      - name: Check Python version
+        run: python --version
+
+      - name: Check main.py
+        run: python -m py_compile main.py
+
+      - name: Check source modules
+        run: python -m compileall -q src
+
+      - name: Check pipeline script
+        run: python -m py_compile visualize_pipeline.py
+
+      - name: CI Success
+        run: echo "All Python syntax checks passed!"
+
