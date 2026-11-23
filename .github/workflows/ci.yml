@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   syntax-check:
-    name: Check Python Syntax
+    name: Python Syntax and Unit Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -39,11 +39,11 @@ jobs:
       - name: Check pipeline script
         run: python -m py_compile visualize_pipeline.py
 
-              - name: Install pytest
+      - name: Install pytest
         run: python -m pip install pytest
 
       - name: Run Overtaking Unit Tests
         run: python -m pytest tests/test_overtaking_planner.py -v
 
       - name: CI Success
-        run: echo "All Python syntax checks passed!"
+        run: echo "Python syntax and unit tests passed!"
