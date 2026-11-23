@@ -42,8 +42,8 @@ jobs:
       - name: Install pytest
         run: python -m pip install pytest
 
-      - name: Run Overtaking Unit Tests
-        run: python -m pytest tests/test_overtaking_planner.py -v
+      - name: Run All Unit Tests
+        run: python -m pytest tests/ -v
 
       - name: CI Success
         run: echo "Python syntax and unit tests passed!"
